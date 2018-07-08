@@ -1,0 +1,41 @@
+version: '2'
+services:
+
+  # The Application
+  app:
+    build:
+      context: ./dockerfiles/php
+      dockerfile: Dockerfile
+    working_dir: /var/www
+    volumes:
+      - ../collectDumpAPI:/var/www
+    environment:
+      - "DB_PORT=33061"
+      - "DB_HOST=192.168.99.100"
+
+  # The Web Server
+  web:
+    build:
+      context: ./dockerfiles/nginx
+      dockerfile: Dockerfile
+    working_dir: /var/www
+    volumes_from:
+      - app
+    ports:
+      - 8080:80
+
+  # The Database
+  database:
+    image: mysql:5.6
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=homestead"
+      - "MYSQL_USER=homestead"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_ROOT_PASSWORD=secret"
+    ports:
+        - "33061:3306"
+
+volumes:
+  dbdata:
