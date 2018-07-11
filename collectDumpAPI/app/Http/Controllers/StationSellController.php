@@ -10,14 +10,26 @@ use Illuminate\Http\Request;
 class StationSellController extends Controller{
 
 	public function create(Request $request){
+
+        $this->validate($request, [
+            'price'     => 'required',
+            'quantity'  => 'required',
+            'type_id'   => 'required',
+        ]);
  
     	$stationSell = StationSell::create($request->all());
  
-    	return response()->json($stationSell);
+    	return response()->json(['data' => $stationSell]);
  
 	}
  
 	public function update(Request $request, $id){
+
+        $this->validate($request, [
+            'price'     => 'required',
+            'quantity'  => 'required',
+            'type_id'   => 'required',
+        ]);
 
     	$stationSell = StationSell::find($id);
         $stationSell->price = $request->input('price');
@@ -26,36 +38,49 @@ class StationSellController extends Controller{
         $stationSell->station_id = $request->input('station_id');
     	$stationSell->save();
  
-    	return response()->json($stationSell);
+    	return response()->json(['data' => $stationSell]);
 	}  
 
 	public function delete($id){
-    	$stationSell = StationSell::find($id);
-    	$stationSell->delete();
+
+        try {
+            $stationSell = Type::findOrFail($id);
+            $stationSell->delete();
+        } catch(\Exception $e) {
+                $stationSell = null;
+                $statusCode = 404;
+        }
  
-    	return response()->json('Removed successfully.');
+    	return response()->json([
+            "data" => $stationSell,
+            "status" => $stationSell ? "success" : "Not found."
+        ], $statusCode ?? 200
+        );
 	}
 
 	public function index(){
  
-    	$stationSell = DB::table('stationSell')
-                        ->join('type', 'type.id', '=', 'stationSell.type_id')
-                        ->select('stationSell.*', 'type.type')
-                        ->get(); 
- 
-    	return response()->json($stationSell);
+    	return response()->json(['data'=> StationSell::with('typename')->get()]);
  
     }
 
-    public function searchTypeName($type) {
+    public function show($id) {
+        $stationSells = StationSell::with('type')->findOrFail($id);
+        return response()->json($stationSells);        
+    }
 
+    public function searchTypeName($name) {
         $type = DB::table('type')
-                ->where('type', '=', $type)
+                ->where('type', '=', $name)
                 ->first();  
-        $stationSells = DB::table('stationSell')
+
+        $stationSells = StationSell::with('typename')
                             ->where('type_id', '=', $type->id)
                             ->get(); 
-        return response()->json($stationSells);        
+        
+        return response()->json([
+            'data'=> $stationSells
+            ]);        
     }
 }
 ?>
