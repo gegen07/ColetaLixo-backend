@@ -10,33 +10,80 @@ class TypeController extends Controller{
 
 	public function create(Request $request){
  
-    	$type = Type::create($request->all());
+			$type = Type::create($request->all());
+			
+			$statusCode = $type ? 200 : 422;
  
-    	return response()->json($type);
+			return response()->json(
+				[
+					'data' => $type,
+					'statusCode' => $statusCode = $type ? 200 : 422
+				], $statusCode);
  
 	}
  
 	public function update(Request $request, $id){
 
-    	$type = Type::find($id);
-    	$type->type = $request->input('type');
-    	$type->save();
+			$this->validate($request, [
+					'type' => 'required'
+			]);
+
+			try {
+				$type = Type::findOrFail($id);
+				$type->type = $request->input('type');
+				$type->save();
+			} catch(\Exception $e) {
+				$type = null;
+				$statusCode = 404;
+			}
  
-    	return response()->json($type);
+			return response()
+				->json(
+					[
+						'data' => $type,
+						'statusCode' => $statusCode = $type ? 'success' : 'Not Found'
+					], $statusCode);
 	}  
 
 	public function delete($id){
-    	$type  = Type::find($id);
-    	$type->delete();
+			try {
+					$type = Type::findOrFail($id);
+					$type->delete();
+			} catch(\Exception $e) {
+					$type = null;
+					$statusCode = 404;
+			}
+			return response(
+					[
+							"data" => $type,
+							"status" => $type ? "success" : "Not found."
+					], $statusCode ?? 200
+			);
  
-    	return response()->json('Removed successfully.');
+    	return response()->json(['data'=>$type], $statusCode);
 	}
 
+	public function show($id)
+    {
+        try {
+            $type = Type::findOrFail($id);
+        } catch (\Exception $e) {
+            $type = null;
+            $statusCode = 404;
+        }
+        return response(
+            [
+                'data' => $type,
+                'status' => $type ? "success" : "Not found.",
+            ], $statusCode ?? 201
+        );
+    }
+
 	public function index(){
- 
+
     	$type  = Type::all();
  
-    	return response()->json($type);
+    	return response()->json(['data' => $type]);
  
 	}
 }

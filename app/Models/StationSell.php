@@ -21,8 +21,25 @@ class StationSell extends Model
         'price', 'quantity', 'type_id', 'idStation'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     public function typename() {
-        return $this->HasOne('App\Models\Type', 'id');
+        return $this->HasOne('App\Models\Type', 'id', 'type_id');
         // TODO make relationship with Auth Station
     }
+
+    // protected $appends = ['_links'];
+    // /**
+    //  * Set attributes links
+    //  *
+    //  * @return array
+    //  */
+    // public function getLinksAttribute()
+    // {
+    //     return [
+    //         'self' => app()->make('url')->to("/api/v1/type/{$this->attributes['type_id']}")
+    //     ];
+    // }
 }

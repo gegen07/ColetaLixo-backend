@@ -14,6 +14,7 @@
 $router->group(['prefix' => 'api/v1'], function($router)
 {
     $router->post('types','TypeController@create');
+    $router->get('types/{id}','TypeController@show');
     $router->post('types/{id}','TypeController@update');
 	$router->delete('types/{id}','TypeController@delete');
     $router->get('types','TypeController@index');
@@ -22,10 +23,11 @@ $router->group(['prefix' => 'api/v1'], function($router)
      * routes for StationSell
      */
     $router->post('stationSells','StationSellController@create');
+    $router->get('stationSells','StationSellController@show');
     $router->post('stationSells/{id}','StationSellController@update');
 	$router->delete('stationSells/{id}','StationSellController@delete');
     $router->get('stationSells','StationSellController@index');
-    $router->get('stationSells/type/{type}', 'StationSellController@searchTypeName');
+    $router->get('stationSells/type/{name}', 'StationSellController@searchTypeName');
     
 
 });
