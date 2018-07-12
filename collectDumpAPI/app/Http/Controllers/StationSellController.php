@@ -44,7 +44,7 @@ class StationSellController extends Controller{
 	public function delete($id){
 
         try {
-            $stationSell = Type::findOrFail($id);
+            $stationSell = StationSell::findOrFail($id);
             $stationSell->delete();
         } catch(\Exception $e) {
                 $stationSell = null;
@@ -65,7 +65,7 @@ class StationSellController extends Controller{
     }
 
     public function show($id) {
-        $stationSells = StationSell::with('type')->findOrFail($id);
+        $stationSells = StationSell::with('typename')->findOrFail($id);
         return response()->json($stationSells);        
     }
 
