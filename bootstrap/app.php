@@ -80,6 +80,8 @@ $app->singleton(
 
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(Dingo\Api\Provider\LumenServiceProvider::class);
+$app->configure('api');
 // $app->register(App\Providers\EventServiceProvider::class);
 //$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
@@ -99,5 +101,15 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
+
+$app['Dingo\Api\Exception\Handler']->setErrorFormat([
+    'error' => [
+        'message' => ':message',
+        'errors' => ':errors',
+        'code' => ':code',
+        'status_code' => ':status_code',
+        'debug' => ':debug'
+    ]
+]);
 
 return $app;
