@@ -38,6 +38,13 @@ $api->version('v1', function ($api) {
                 $api->get('/','App\Http\Controllers\StationSellController@index');
                 $api->get('/type/{name}', 'App\Http\Controllers\StationSellController@searchTypeName');
             });
+            $api->group(['prefix' => 'companyBuys'], function($api) {
+                $api->post('/','App\Http\Controllers\CompanyBuyController@create');
+                $api->get('/{id}','App\Http\Controllers\CompanyBuyController@show');
+                $api->post('/{id}','App\Http\Controllers\CompanyBuControllery@update');
+                $api->delete('/{id}','App\Http\Controllers\CompanyBuyController@delete');
+                $api->get('/','App\Http\Controllers\CompanyBuyController@index');
+            });
         }); 
     });    
 });
