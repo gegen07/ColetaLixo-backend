@@ -18,7 +18,7 @@ class StationSell extends Model
      */
     protected $table = 'stationSell';
     protected $fillable = [
-        'price', 'quantity', 'type_id', 'idStation'
+        'price', 'quantity', 'type_id', 'station_id'
     ];
 
     protected $hidden = [
