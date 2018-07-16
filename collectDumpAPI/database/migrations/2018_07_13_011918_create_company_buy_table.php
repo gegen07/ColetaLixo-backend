@@ -17,7 +17,8 @@ class CreateCompanyBuyTable extends Migration
             $table->increments('id');
             $table->integer('stationSell_id')->unique()->unsigned();
             $table->integer('company_id')->unique()->unsigned(); // TODO: Remember to add foreign key contraint
-            $table->foreign('stationSell_id')->references('id')->on('stationSell');
+            $table->foreign('stationSell_id')->references('id')->on('stationSell')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

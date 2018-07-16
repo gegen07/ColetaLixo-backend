@@ -13,15 +13,9 @@ class UpdatingStationSellUserId extends Migration
      */
     public function up()
     {
-        Schema::create('stationSell', function (Blueprint $table) {
-            $table->increments('id');
-            $table->decimal('price', 18, 2);
-            $table->decimal('quantity', 8, 1);
-            $table->integer('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('type');   
+        Schema::table('stationSell', function (Blueprint $table) { 
             $table->integer('station_id')->unsigned();
             $table->foreign('station_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
