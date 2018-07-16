@@ -1,21 +1,27 @@
 <?php
- 
+
 namespace App\Http\Controllers;
- 
+
 use Illuminate\Support\Facades\DB;
 use App\Models\CompanyBuy;
+use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transformers\CompanyBuyTransformer;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Validator;
-  
+
 class CompanyBuyController extends Controller{
 
     use Helpers;
 
-	public function create(Request $request){
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
+	public function create(Request $request){
+    $request->user()->authorizeRoles(['company']);
 		$rules = [
             'stationSell_id' => ['required'],
             'company_id' => ['required'],
@@ -27,12 +33,12 @@ class CompanyBuyController extends Controller{
 			return $this->response->item($companyBuy, new CompanyBuyTransformer);
 		} else {
 			throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not create new buy of company.', $validator->errors());
-		} 
- 
-	}
- 
-	public function update(Request $request, $id){
+		}
 
+	}
+
+	public function update(Request $request, $id){
+        $request->user()->authorizeRoles(['company']);
         try {
             $companyBuy = CompanyBuy::findOrFail($id);
 
@@ -47,11 +53,11 @@ class CompanyBuyController extends Controller{
         } catch (\Exception $e) {
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found buy of company');
         }
-	}  
+	}
 
-	public function delete($id){
-
-        $companyBuy = CompanyBuy::destroy($id);
+	public function delete(Request $request, $id){
+    $request->user()->authorizeRoles(['company']);
+    $companyBuy = CompanyBuy::destroy($id);
 		if($companyBuy) {
 			return response(
 				[
@@ -63,18 +69,20 @@ class CompanyBuyController extends Controller{
 		}
 	}
 
-	public function index(){
+	public function index(Request $request){
+        $request->user()->authorizeRoles(['company']);
         $companyBuy = CompanyBuy::paginate(12);
-		return $this->response->paginator($companyBuy, new CompanyBuyTransformer);  
+		return $this->response->paginator($companyBuy, new CompanyBuyTransformer);
     }
 
-    public function show($id) {
+    public function show(Request $request, $id) {
+        $request->user()->authorizeRoles(['company']);
         try {
             $companyBuy = CompanyBuy::with('station')->findOrFail($id);
             return $this->response->item($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
         } catch (\Exception $e) {
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not buy of company');
-        }       
+        }
     }
 }
 ?>

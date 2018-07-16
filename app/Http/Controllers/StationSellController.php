@@ -1,21 +1,28 @@
 <?php
- 
+
 namespace App\Http\Controllers;
- 
+
 use Illuminate\Support\Facades\DB;
 use App\Models\StationSell;
+use App\Models\Role;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transformers\StationSellTransformer;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Validator;
-  
+
 class StationSellController extends Controller{
 
-    use Helpers;
+  use Helpers;
+
+  public function __construct()
+  {
+      $this->middleware('auth:api');
+  }
 
 	public function create(Request $request){
-
+        $request->user()->authorizeRoles(['station']);
 		$rules = [
             'price' => ['required'],
             'quantity' => ['required'],
@@ -29,12 +36,12 @@ class StationSellController extends Controller{
 			return $this->response->item($stationSell, new StationSellTransformer);
 		} else {
 			throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not create new sell of station.', $validator->errors());
-		} 
- 
-	}
- 
-	public function update(Request $request, $id){
+		}
 
+	}
+
+	public function update(Request $request, $id){
+        $request->user()->authorizeRoles(['station']);
         try {
             $stationSell = StationSell::findOrFail($id);
 
@@ -55,10 +62,10 @@ class StationSellController extends Controller{
         } catch (\Exception $e) {
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found sell of station');
         }
-	}  
+	}
 
-	public function delete($id){
-
+	public function delete(Request $request, $id){
+        $request->user()->authorizeRoles(['station']);
         $stationSell = StationSell::destroy($id);
 		if($stationSell) {
 			return response(
@@ -71,30 +78,33 @@ class StationSellController extends Controller{
 		}
 	}
 
-	public function index(){
+	public function index(Request $request){
+        $request->user()->authorizeRoles(['station', 'company']);
         $stationSell = StationSell::paginate(12);
-		return $this->response->paginator($stationSell, new StationSellTransformer);  
+		return $this->response->paginator($stationSell, new StationSellTransformer);
     }
 
-    public function show($id) {
+    public function show(Request $request, $id) {
+        $request->user()->authorizeRoles(['station', 'company']);
         try {
             $stationSell = StationSell::with('typename')->findOrFail($id);
             return $this->response->item($stationSell, new StationSellTransformer)->setStatusCode(200);
         } catch (\Exception $e) {
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found sell of station');
-        }       
+        }
     }
 
-    public function searchTypeName($name) {
+    public function searchTypeName(Request $request, $name) {
+        $request->user()->authorizeRoles(['station', 'company']);
         $type = DB::table('type')
                 ->where('type', '=', $name)
-                ->first();  
+                ->first();
 
         $stationSells = StationSell::with('typename')
                             ->where('type_id', '=', $type->id)
-                            ->paginate(12); 
-        
-        return $this->response->paginator($stationSells, new StationSellTransformer);     
+                            ->paginate(12);
+
+        return $this->response->paginator($stationSells, new StationSellTransformer);
     }
 }
 ?>

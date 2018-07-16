@@ -13,20 +13,20 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', function ($api) {  
+$api->version('v1', function ($api) {
     $api->get('/', function () use ($api) {
         return "oi"; // not sure what you wanted to do here but this isn't valid...
     });
-    
+
     $api->group(['prefix' => 'api/v1'], function ($api) {
         $api->post('login','App\Http\Controllers\AuthController@authenticate');
         $api->post('register', 'App\Http\Controllers\AuthController@register');
 
-        $api->group(['middleware' => 'jwt.auth'], function($api) {
+        $api->group(['middleware' => 'auth:api'], function($api) {
             $api->group(['prefix' => 'user'], function($api) {
                 $api->post('/logout', 'App\Http\Controllers\AuthController@logout');
             });
-            
+
             $api->group(['prefix' => 'types'], function($api) {
                 $api->post('/','App\Http\Controllers\TypeController@create');
                 $api->get('/{id}','App\Http\Controllers\TypeController@show');
@@ -34,7 +34,7 @@ $api->version('v1', function ($api) {
                 $api->delete('/{id}','App\Http\Controllers\TypeController@delete');
                 $api->get('/','App\Http\Controllers\TypeController@index');
             });
-    
+
             $api->group(['prefix' => 'stationSells'], function ($api) {
                 $api->post('/','App\Http\Controllers\StationSellController@create');
                 $api->get('/{id}','App\Http\Controllers\StationSellController@show');
@@ -51,14 +51,14 @@ $api->version('v1', function ($api) {
                 $api->get('/','App\Http\Controllers\CompanyBuyController@index');
             });
         });
-    });    
+    });
 });
 
 
 // $router->group(['prefix' => 'api/v1'], function($router)
 // {
-    
-    
+
+
 
 // });
 
