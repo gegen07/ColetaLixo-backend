@@ -11,6 +11,8 @@ use App\Transformers\CompanyBuyTransformer;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Validator;
 
+use App\Helpers\Search\CompanyBuySearch\CompanyBuySearch;
+
 class CompanyBuyController extends Controller{
 
     use Helpers;
@@ -77,22 +79,15 @@ class CompanyBuyController extends Controller{
 	public function index(Request $request)
   {
     $request->user()->authorizeRoles(['company']);
-
-    if ($request->has('limit')) {
-      $companyBuy = CompanyBuy::paginate($request->input('limit'));
-    } else {
-      $companyBuy = CompanyBuy::paginate($request->input(12));
-    }
-
-
-    return $this->response->paginator($companyBuy, new CompanyBuyTransformer);
+    $companyBuys = CompanyBuySearch::apply($request);
+    return $this->response->paginator($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
   }
 
   public function show(Request $request, $id)
   {
     $request->user()->authorizeRoles(['company']);
     try {
-        $companyBuy = CompanyBuy::with('station')->findOrFail($id);
+        $companyBuy = CompanyBuy::findOrFail($id);
         return $this->response->item($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
     } catch (\Exception $e) {
         throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not buy of company');

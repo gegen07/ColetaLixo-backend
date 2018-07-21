@@ -85,21 +85,8 @@ class StationSellController extends Controller{
   {
     $request->user()->authorizeRoles(['station', 'company']);
 
-    if($request->has('type')) {
-      $stationSell = searchTypeName($request, $request->input('type'));
-    }
-
-    if ($request->has('station_name')) {
-      $stationSell = searchStationName($request, $request->input('station_name'));
-    }
-
-    if ($request->has('limit')) {
-      $stationSell = StationSell::paginate($request->input('limit'));
-    } else {
-      $stationSell = StationSell::paginate(12);
-    }
-
-    return $this->response->paginator($stationSell, new StationSellTransformer);
+    $stationSells = StationSellSearch::apply($request);
+    return $this->response->paginator($stationSells, new StationSellTransformer);
   }
 
   public function show(Request $request, $id) {
@@ -110,11 +97,6 @@ class StationSellController extends Controller{
     } catch (\Exception $e) {
       throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found sell of station');
     }
-  }
-
-  public function search(Request $request)
-  {
-    return StationSellSearch::apply($request);
   }
 }
 ?>

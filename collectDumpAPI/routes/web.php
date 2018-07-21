@@ -38,7 +38,6 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'stationSells'], function ($api) {
                 $api->post('/','App\Http\Controllers\StationSellController@create');
                 $api->get('/','App\Http\Controllers\StationSellController@index');
-                $api->get('/search', 'App\Http\Controllers\StationSellController@search');
                 $api->get('/{id}','App\Http\Controllers\StationSellController@show');
                 $api->post('/{id}','App\Http\Controllers\StationSellController@update');
                 $api->delete('/{id}','App\Http\Controllers\StationSellController@delete');
