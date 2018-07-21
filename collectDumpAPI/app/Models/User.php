@@ -26,6 +26,14 @@ class User extends Model implements JWTSubject, AuthenticatableContract, Authori
         return $this->belongsToMany(Role::class);
     }
 
+    public function stationSells() {
+        return $this->belongsToMany(StationSell::class, 'station_id', 'id');
+    }
+
+    public function companyBuys() {
+        return $this->belongsToMany(CompanyBuy::class, 'company_id', 'id');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

@@ -16,10 +16,11 @@ class TypeController extends Controller{
 
   public function __construct()
   {
-      $this->middleware('auth:api');
+    $this->middleware('auth:api');
   }
 
-	public function create(Request $request){
+	public function create(Request $request)
+	{
 		$request->user()->authorizeRoles(['station', 'company']);
 
 		$payload = $request->only('type');
@@ -36,7 +37,8 @@ class TypeController extends Controller{
 		}
 	}
 
-	public function update(Request $request, $id){
+	public function update(Request $request, $id)
+	{
 		$request->user()->authorizeRoles(['station', 'company']);
 
 		$payload = $request->only('type');
@@ -59,7 +61,8 @@ class TypeController extends Controller{
 		}
 	}
 
-	public function delete($id) {
+	public function delete($id)
+	{
 		$request->user()->authorizeRoles(['station', 'company']);
 
 		$type = Type::destroy($id);
@@ -72,11 +75,10 @@ class TypeController extends Controller{
 		} else {
 			throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found type');
 		}
-
-
 	}
 
-	public function show($id) {
+	public function show($id)
+	{
 		$request->user()->authorizeRoles(['station', 'company']);
 
 		try {
@@ -87,10 +89,16 @@ class TypeController extends Controller{
     }
   }
 
-	public function index(){
+	public function index()
+	{
 		$request->user()->authorizeRoles(['station', 'company']);
 
-    $type  = Type::paginate(12);
+		if($request->has('limit')) {
+			$type = Type::paginate($request->input('limit'));
+		} else {
+			$type = Type::paginate(12);
+		}
+
 		return $this->response->paginator($type, new TypeTransformer);
 	}
 }

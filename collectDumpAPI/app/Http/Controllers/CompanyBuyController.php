@@ -11,17 +11,21 @@ use App\Transformers\CompanyBuyTransformer;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Validator;
 
+use App\Helpers\Search\CompanyBuySearch\CompanyBuySearch;
+
 class CompanyBuyController extends Controller{
 
     use Helpers;
 
     public function __construct()
     {
-        $this->middleware('auth:api');
+      $this->middleware('auth:api');
     }
 
-	public function create(Request $request){
+	public function create(Request $request)
+  {
     $request->user()->authorizeRoles(['company']);
+
 		$rules = [
             'stationSell_id' => ['required'],
             'company_id' => ['required'],
@@ -37,25 +41,28 @@ class CompanyBuyController extends Controller{
 
 	}
 
-	public function update(Request $request, $id){
-        $request->user()->authorizeRoles(['company']);
-        try {
-            $companyBuy = CompanyBuy::findOrFail($id);
+	public function update(Request $request, $id)
+  {
+    $request->user()->authorizeRoles(['company']);
 
-            if ($request->has('stationSell_id')) {
-                $companyBuy->station_id = $request->input('stationSell_id');
-            }
-            if($request->has('company_id')) {
-                $companyBuy->company_id = $request->input('company_id');
-            }
-            $companyBuy->save();
-            return $this->response->item($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
-        } catch (\Exception $e) {
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found buy of company');
-        }
+    try {
+      $companyBuy = CompanyBuy::findOrFail($id);
+
+      if ($request->has('stationSell_id')) {
+          $companyBuy->station_id = $request->input('stationSell_id');
+      }
+      if($request->has('company_id')) {
+          $companyBuy->company_id = $request->input('company_id');
+      }
+      $companyBuy->save();
+      return $this->response->item($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
+    } catch (\Exception $e) {
+      throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found buy of company');
+    }
 	}
 
-	public function delete(Request $request, $id){
+	public function delete(Request $request, $id)
+  {
     $request->user()->authorizeRoles(['company']);
     $companyBuy = CompanyBuy::destroy($id);
 		if($companyBuy) {
@@ -65,24 +72,26 @@ class CompanyBuyController extends Controller{
 				], $statusCode ?? 201
 			);
 		} else {
-			throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found buy of company');
+		   throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found buy of company');
 		}
 	}
 
-	public function index(Request $request){
-        $request->user()->authorizeRoles(['company']);
-        $companyBuy = CompanyBuy::paginate(12);
-		return $this->response->paginator($companyBuy, new CompanyBuyTransformer);
-    }
+	public function index(Request $request)
+  {
+    $request->user()->authorizeRoles(['company']);
+    $companyBuys = CompanyBuySearch::apply($request);
+    return $this->response->paginator($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
+  }
 
-    public function show(Request $request, $id) {
-        $request->user()->authorizeRoles(['company']);
-        try {
-            $companyBuy = CompanyBuy::with('station')->findOrFail($id);
-            return $this->response->item($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
-        } catch (\Exception $e) {
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not buy of company');
-        }
+  public function show(Request $request, $id)
+  {
+    $request->user()->authorizeRoles(['company']);
+    try {
+        $companyBuy = CompanyBuy::findOrFail($id);
+        return $this->response->item($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
+    } catch (\Exception $e) {
+        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not buy of company');
     }
+  }
 }
 ?>
