@@ -21,8 +21,10 @@ class CompanyBuy extends Model
         'created_at', 'updated_at'
     ];
 
-    public function station() {
-        return $this->HasOne('App\Models\StationSell', 'id', 'stationSell_id');
-        // TODO make relationship with Auth company
+    public function stationSell() {
+        return $this->belongsToMany(StationSell::class, 'id', 'stationSell_id');
+    }
+    public function company() {
+        return $this->belongsToMany(User::class, 'id', 'company_id');
     }
 }

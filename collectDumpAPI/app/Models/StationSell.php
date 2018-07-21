@@ -22,20 +22,10 @@ class StationSell extends Model
     ];
 
     public function typename() {
-        return $this->HasOne('App\Models\Type', 'id', 'type_id');
-        // TODO make relationship with Auth Station
+        return $this->HasOne(Type::class, 'id', 'type_id');
     }
 
-    // protected $appends = ['_links'];
-    // /**
-    //  * Set attributes links
-    //  *
-    //  * @return array
-    //  */
-    // public function getLinksAttribute()
-    // {
-    //     return [
-    //         'self' => app()->make('url')->to("/api/v1/type/{$this->attributes['type_id']}")
-    //     ];
-    // }
+    public function station() {
+        return $this->HasOne(User::class, 'id', 'station_id');
+    }
 }

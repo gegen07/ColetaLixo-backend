@@ -14,10 +14,10 @@ class StationSellTransformer extends TransformerAbstract
             'quantity' => $stationSell->quantity,
             'type'   => [
               'link' => '/api/v1/types/' . $stationSell->type_id
-              
+
             ],
             'station' => [
-                'link' => '/api/v1/station/' . $stationSell->idStation 
+                'link' => '/api/v1/station/' . $stationSell->station_id 
             ]
         ];
     }
