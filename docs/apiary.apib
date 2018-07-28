@@ -6,9 +6,9 @@ HOST: http://polls.apiblueprint.org/api/v1
 collectAPI is a simple API that have a purpose of facilitate the communication between 
 station and company that buys recycle dump.
 
-## Register [register]
-### Register [POST] 
-
+# Group Auth
+## User-Register [/register]
+### Register [POST]
 + Request (application/json)
 
     + Attributes
@@ -39,8 +39,8 @@ station and company that buys recycle dump.
         }
 
 
-## Login [login]
-### Login [POST] 
+## User-Login [/login]
+### Login [POST]
 
 + Request (application/json)
 
@@ -65,14 +65,14 @@ station and company that buys recycle dump.
             "message": "Email or password is wrong"
         }
 
-## Logout [user/logout]
-### Logout [POST] 
+## User-Logout [/logout]
+### Logout [POST]
 
 + Request (application/json)
 
-    + Attributes
-        
-        + token: token (required)
+    + Headers
+
+            token: Bearer JWT
     
 
 + Response 200 (application/json)
@@ -91,10 +91,13 @@ station and company that buys recycle dump.
 ## Types Collection [/types]
 ### Create Types [POST]
 + Request (application/json)
+    + Headers
+
+            token: Bearer JWT
     
     + Attributes
-
-        + token: token (required)
+        
+        + type: type(required)
     
 + Response 200 (application/json)
 
@@ -107,10 +110,10 @@ station and company that buys recycle dump.
 
 ### List Types [GET]
 
-+ Request (application/json)
-    
-    + Attributes
-        + token: token (required)
++ Request
+    + Headers
+
+            token: Bearer JWT
 
 + Response 200 (application/json)
 
@@ -128,23 +131,97 @@ station and company that buys recycle dump.
                     "per_page": 12,
                     "current_page": 1,
                     "total_pages": 1,
-                    "links": []
+                    "links": ["previous":"here",
+                              "next": "here"]
                 }
             }
         }
 
-### Type [/{type_id}]
-
-+ Parameters
-    + type_id (number, required)
+## Type [/{type_id}]
+### Show [GET]
 
 + Request (application/json)
+    + Headers
+            
+            token: Bearer JWT
+    + Parameters
+        + type_id (number, required)
 
 + Response 200 (application/json)
         {
             "data": {
                 "id": 1,
                 "type": "plastic"
+            }
+        }
+
++ Response 404 (application/json)
+        {
+            "error": {
+                "message": "Could not found type",
+                "status_code": 404
+            }
+        }
+
+### Update Types [/{type_id} POST]
++ Request (application/json)
+    + Headers
+
+            token: Bearer JWT
+    + Attributes
+        
+        + type: type(required)
+    
+    + Parameters
+        
+        + type_id (number, required)
+    
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "id": 1,
+                "type": "type"
+            }
+        }
+
++ Response 404 (application/json)
+        
+        {
+            "error": {
+                "message": "Could not found type",
+                "status_code": 404
+            }
+        }
+
+### Delete Type [/{type_id} DELETE]
++ Request (application/json)
+    + Headers
+
+            token: Bearer JWT
+    + Attributes
+        
+        + type: type(required)
+    
+    + Parameters
+        
+        + type_id (number, required)
+    
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "id": 1,
+                "type": "type"
+            }
+        }
+
++ Response 404 (application/json)
+        
+        {
+            "error": {
+                "message": "Could not found type",
+                "status_code": 404
             }
         }
 
