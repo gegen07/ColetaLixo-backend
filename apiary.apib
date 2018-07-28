@@ -3,78 +3,70 @@ HOST: http://polls.apiblueprint.org/
 
 # collectAPI
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+collectAPI is a simple API that have a purpose of facilitate the communication between 
+station and company that buys recycle dump.
 
-## Questions Collection [/questions]
-
-### List All Questions [GET]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+## Register [/api/v1/register]
+### Register [POST] 
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "name": "yourName",
+            "address": "yourAddress",
+            "telephone": "+5587541265"
+            "email": "example@example.com",
+            "password": "thePassword",
+            "role": "company"
         }
 
-+ Response 201 (application/json)
 
-    + Headers
++ Response 200 (application/json)
 
-            Location: /questions/2
+        {
+            "success"=> true,
+            "message"=> "Thanks for signing up!"
+        }
 
-    + Body
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+## Login [/api/v1/login]
+### Login [POST] 
+
++ Request (application/json)
+
+        {
+            "email": "example@example.com",
+            "password": "thePassword"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "data": {
+                "token": "______"
             }
+        }
+
+## Logout [/api/v1/user/logout]
+### Logout [POST] 
+
++ Request (application/json)
+    
+    + Headers
+        Location: /api/v1/user/logout?token=token
+
++ Response 200 (application/json)
+
+        {
+            "success" => true, 
+            "message"=> "You have successfully logged out."
+        }
+        
++ Response 500 (application/json)
+
+        {
+            "success" => false, 
+            "message"=> "Failed to logout, please try again."
+        }
