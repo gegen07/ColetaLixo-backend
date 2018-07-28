@@ -22,9 +22,9 @@ class CompanyBuy extends Model
     ];
 
     public function stationSell() {
-        return $this->belongsToMany(StationSell::class, 'id', 'stationSell_id');
+        return $this->belongsTo(StationSell::class, 'id', 'stationSell_id');
     }
     public function company() {
-        return $this->belongsToMany(User::class, 'id', 'company_id');
+        return $this->belongsTo(User::class, 'id', 'company_id');
     }
 }

@@ -13,7 +13,7 @@ class Type extends Model
      * @var array
      */
     protected $table = 'type';
-    protected $fillable = ['type'];
+    protected $fillable = ['id', 'type'];
 
     protected $hidden = [
         'created_at', 'updated_at'

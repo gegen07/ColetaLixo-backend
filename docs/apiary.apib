@@ -1,0 +1,175 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/api/v1
+
+# collectAPI
+
+collectAPI is a simple API that have a purpose of facilitate the communication between 
+station and company that buys recycle dump.
+
+## Register [register]
+### Register [POST] 
+
++ Request (application/json)
+
+    + Attributes
+        
+        + name: yourName (required)
+        + address: yourAddress (required)
+        + telephone: +5587541265 (required)
+        + email: email@example.com (required)
+        + password: password (required)
+        + role: company|station (required)
+
++ Response 200 (application/json)
+
+        {
+            "message"=> "Thanks for signing up!"
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message"=> 
+            {
+                "name":["error_message"],
+                "email":["error_message"],
+                "address":["error_message"],
+                "telephone":["error_message"]
+            }
+        }
+
+
+## Login [login]
+### Login [POST] 
+
++ Request (application/json)
+
+    + Attributes
+        
+        + email: email@example.com(required)
+        + password: password (required)
+
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "data": {
+                "token": "______"
+            }
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "Email or password is wrong"
+        }
+
+## Logout [user/logout]
+### Logout [POST] 
+
++ Request (application/json)
+
+    + Attributes
+        
+        + token: token (required)
+    
+
++ Response 200 (application/json)
+
+        {
+            "message"=> "You have successfully logged out."
+        }
+        
++ Response 500 (application/json)
+
+        {
+            "message"=> "Failed to logout, please try again."
+        }
+
+# Group Types
+## Types Collection [/types]
+### Create Types [POST]
++ Request (application/json)
+    
+    + Attributes
+
+        + token: token (required)
+    
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "id": 1,
+                "type": "plastic"
+            }
+        }
+
+### List Types [GET]
+
++ Request (application/json)
+    
+    + Attributes
+        + token: token (required)
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "id": 1,
+                    "type": "plastic"
+                }
+            ],
+            "meta": {
+                "pagination": {
+                    "total": 1,
+                    "count": 1,
+                    "per_page": 12,
+                    "current_page": 1,
+                    "total_pages": 1,
+                    "links": []
+                }
+            }
+        }
+
+### Type [/{type_id}]
+
++ Parameters
+    + type_id (number, required)
+
++ Request (application/json)
+
++ Response 200 (application/json)
+        {
+            "data": {
+                "id": 1,
+                "type": "plastic"
+            }
+        }
+
+## Data Structures
+
+## Type(object)
++ id (number)
++ type (string)
+
+## StationSell(object)
++ id (number)
++ price (number)
++ quantity (number)
++ type_id (string)
++ station_id (string)
+
+## CompanyBuy(object)
++ id (number)
++ company_id (string)
++ stationSell_id (string)   
+
+## User (object)
++ id (number)
++ name (string)
++ email (string)
++ telephone (string)
++ address (string)
++ token (string)

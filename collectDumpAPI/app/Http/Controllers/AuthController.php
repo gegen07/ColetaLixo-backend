@@ -55,33 +55,35 @@ class AuthController extends BaseController {
           'password' => 'required|max:45',
         ]);
 
-        // Verify the password and generate the token
-        if (!$token = JWTAuth::attempt($credentials)) {
-          return response()->json(['error' => 'Unauthorized'], 401);
+        try {
+            // attempt to verify the credentials and create a token for the user
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return response()->json(['message' => 'Email or password is wrong.'], 404);
+            }
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['message' => 'Failed to login, please try again.'], 500);
         }
 
-        return response()->json(['success' => true, 'data'=> [ 'token' => $token ]], 200);
-        // Bad Request response
-        return response()->json([
-          'error' => 'Email or password is wrong.'
-        ], 400);
+        return response()->json(['data'=> [ 'token' => $token ]], 200);
     }
 
     public function register(Request $request)
     {
-      $credentials = $request->only('name', 'email', 'password', 'address', 'telephone');
+      $credentials = $request->only('name', 'email', 'password', 'address', 'telephone', 'role');
 
       $rules = [
         'name' => 'required|max:255',
         'email' => 'required|email|max:255|unique:users',
         'password' => 'required|max:20',
         'address' => 'required',
-        'telephone' => 'required'
+        'telephone' => 'required',
+        'role' => 'required'
       ];
 
       $validator = Validator::make($credentials, $rules);
       if($validator->fails()) {
-        return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+        return response()->json(['message'=> $validator->messages()], 400);
       }
 
       $name = $request->name;
@@ -89,6 +91,7 @@ class AuthController extends BaseController {
       $password = $request->password;
       $address = $request->address;
       $telephone = $request->telephone;
+      $role = $request->role;
 
       $user = User::create(['name' => $name,
                             'email' => $email,
@@ -96,10 +99,9 @@ class AuthController extends BaseController {
                             'address' => $address,
                             'telephone' => $telephone
                             ]);
-      $user->roles()->attach(Role::where('name', $request->role)->first());
+      $user->roles()->attach(Role::where('name', $role)->first());
 
-      return response()->json(['success'=> true,
-                               'message'=> 'Thanks for signing up!']);
+      return response()->json(['message'=> 'Thanks for signing up!'], 200);
     }
 
     public function logout(request $request) {
@@ -107,10 +109,10 @@ class AuthController extends BaseController {
 
         try {
             JWTAuth::setToken($request->input('token'))->invalidate();
-            return response()->json(['success' => true, 'message'=> "You have successfully logged out."]);
+            return response()->json(['message'=> "You have successfully logged out."], 200);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
+            return response()->json(['message' => 'Failed to logout, please try again.'], 500);
         }
     }
 }

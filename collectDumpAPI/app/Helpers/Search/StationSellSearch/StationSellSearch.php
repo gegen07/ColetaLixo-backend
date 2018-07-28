@@ -18,7 +18,7 @@ class StationSellSearch
 
   private static function applyDecoratorFromRequest(Request $request, Builder $query) {
     foreach ($request->all() as $filterName => $value) {
-      $decorator = static::createFilterDecorator($name);
+      $decorator = static::createFilterDecorator($value);
 
       if (static::isValidDecorator($decorator)) {
         $query = $decorator::apply($query, $value);

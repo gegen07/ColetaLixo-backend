@@ -80,7 +80,12 @@ class CompanyBuyController extends Controller{
   {
     $request->user()->authorizeRoles(['company']);
     $companyBuys = CompanyBuySearch::apply($request);
-    return $this->response->paginator($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
+
+    if($request->has("limit")) {
+      return $this->response->paginator($companyBuys, new CompanyBuyTransformer)->setStatusCode(200);
+    }
+
+    return $this->response->collection($companyBuys, new CompanyBuyTransformer)->setStatusCode(200);
   }
 
   public function show(Request $request, $id)

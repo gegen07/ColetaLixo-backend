@@ -86,7 +86,12 @@ class StationSellController extends Controller{
     $request->user()->authorizeRoles(['station', 'company']);
 
     $stationSells = StationSellSearch::apply($request);
-    return $this->response->paginator($stationSells, new StationSellTransformer);
+
+    if($request->has('limit')) {
+      return $this->response->paginator($stationSells, new StationSellTransformer);
+    }
+
+    return $this->response->collection($stationSells, new StationSellTransformer);
   }
 
   public function show(Request $request, $id) {

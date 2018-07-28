@@ -31,7 +31,7 @@ class TypeController extends Controller{
 
 		if (!$validator->fails()) {
 			$type = Type::create($request->all());
-			return $this->response->item($type, new TypeTransformer);
+			return $this->response->item($type, new TypeTransformer)->setStatusCode(200);
 		} else {
 			throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not create new type.', $validator->errors());
 		}
@@ -61,23 +61,19 @@ class TypeController extends Controller{
 		}
 	}
 
-	public function delete($id)
+	public function delete(Request $request, $id)
 	{
 		$request->user()->authorizeRoles(['station', 'company']);
 
 		$type = Type::destroy($id);
 		if($type) {
-			return response(
-				[
-					'status' => $type ? "success" : "Not found.",
-				], $statusCode ?? 201
-			);
+			return response($statusCode ?? 204);
 		} else {
 			throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found type');
 		}
 	}
 
-	public function show($id)
+	public function show(Request $request, $id)
 	{
 		$request->user()->authorizeRoles(['station', 'company']);
 
@@ -89,7 +85,7 @@ class TypeController extends Controller{
     }
   }
 
-	public function index()
+	public function index(Request $request)
 	{
 		$request->user()->authorizeRoles(['station', 'company']);
 
@@ -99,7 +95,7 @@ class TypeController extends Controller{
 			$type = Type::paginate(12);
 		}
 
-		return $this->response->paginator($type, new TypeTransformer);
+		return $this->response->paginator($type, new TypeTransformer)->setStatusCode(200);
 	}
 }
 ?>
