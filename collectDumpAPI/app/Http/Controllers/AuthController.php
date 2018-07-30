@@ -5,6 +5,7 @@ use Validator;
 use App\Models\Role;
 use App\Models\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -57,7 +58,7 @@ class AuthController extends BaseController {
 
         try {
             // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
+            if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['message' => 'Email or password is wrong.'], 404);
             }
         } catch (JWTException $e) {
@@ -65,7 +66,7 @@ class AuthController extends BaseController {
             return response()->json(['message' => 'Failed to login, please try again.'], 500);
         }
 
-        return response()->json(['data'=> [ 'token' => $token ]], 200);
+        return response()->json(['data'=> [ 'token' => static::respondWithToken($token) ]], 200);
     }
 
     public function register(Request $request)
@@ -108,7 +109,7 @@ class AuthController extends BaseController {
         $this->validate($request, ['token' => 'required']);
 
         try {
-            JWTAuth::setToken($request->input('token'))->invalidate();
+            JWTAuth::setToken($request->header('token'))->invalidate();
             return response()->json(['message'=> "You have successfully logged out."], 200);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token

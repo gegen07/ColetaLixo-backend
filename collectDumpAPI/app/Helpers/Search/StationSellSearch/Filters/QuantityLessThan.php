@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 namespace App\Helpers\Search\StationSellSearch\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use App\Helpers\Search\Filter;
 
-class QuantityLessThan implements Filter 
+class QuantityLessThan implements Filter
 {
-  public static function apply(Builder $builder, $values) 
+  public static function apply(Builder $builder, $values)
   {
-    return $builder->where('quantity', '<', $values);  
+    return $builder->where('quantity', '<', $values);
   }
 }
 ?>

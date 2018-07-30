@@ -3,13 +3,15 @@ namespace App\Http\Middleware;
 use Closure;
 use Exception;
 use App\Models\User;
-use Firebase\JWT\JWT;
-use Firebase\JWT\ExpiredException;
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\ExpiredException;
+
 class JwtMiddleware {
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, $guard = null)
     {
-        $token = $request->get('token');
-        
+        $token = $request->header('token');
+
         if(!$token) {
             // Unauthorized response if token not there
             return response()->json([

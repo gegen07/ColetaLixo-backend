@@ -1,9 +1,9 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/api/v1
+HOST: http://domain/api/v1
 
 # collectAPI
 
-collectAPI is a simple API that have a purpose of facilitate the communication between 
+collectAPI is a simple API that have a purpose of facilitate the communication between
 station and company that buys recycle dump.
 
 # Group Auth
@@ -12,7 +12,7 @@ station and company that buys recycle dump.
 + Request (application/json)
 
     + Attributes
-        
+
         + name: yourName (required)
         + address: yourAddress (required)
         + telephone: +5587541265 (required)
@@ -29,7 +29,7 @@ station and company that buys recycle dump.
 + Response 400 (application/json)
 
         {
-            "message"=> 
+            "message"=>
             {
                 "name":["error_message"],
                 "email":["error_message"],
@@ -45,7 +45,7 @@ station and company that buys recycle dump.
 + Request (application/json)
 
     + Attributes
-        
+
         + email: email@example.com(required)
         + password: password (required)
 
@@ -65,22 +65,20 @@ station and company that buys recycle dump.
             "message": "Email or password is wrong"
         }
 
-## User-Logout [/logout]
+## User-Logout [/logout{?token}]
 ### Logout [POST]
 
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+
 + Request (application/json)
-
-    + Headers
-
-            token: Bearer JWT
-    
 
 + Response 200 (application/json)
 
         {
             "message"=> "You have successfully logged out."
         }
-        
+
 + Response 500 (application/json)
 
         {
@@ -88,17 +86,17 @@ station and company that buys recycle dump.
         }
 
 # Group Types
-## Types Collection [/types]
+## Creation of Type [/types{?token}]
 ### Create Types [POST]
-+ Request (application/json)
-    + Headers
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
 
-            token: Bearer JWT
-    
++ Request (application/json)
+
     + Attributes
-        
+
         + type: type(required)
-    
+
 + Response 200 (application/json)
 
         {
@@ -109,11 +107,8 @@ station and company that buys recycle dump.
         }
 
 ### List Types [GET]
-
-+ Request
-    + Headers
-
-            token: Bearer JWT
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
 
 + Response 200 (application/json)
 
@@ -131,23 +126,22 @@ station and company that buys recycle dump.
                     "per_page": 12,
                     "current_page": 1,
                     "total_pages": 1,
-                    "links": ["previous":"here",
-                              "next": "here"]
+                    "links": []
                 }
             }
         }
 
-## Type [/{type_id}]
+## Type [/types/{type_id}{?token}]
 ### Show [GET]
 
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + type_id:1 (number, required)
+
 + Request (application/json)
-    + Headers
-            
-            token: Bearer JWT
-    + Parameters
-        + type_id (number, required)
 
 + Response 200 (application/json)
+
         {
             "data": {
                 "id": 1,
@@ -156,6 +150,7 @@ station and company that buys recycle dump.
         }
 
 + Response 404 (application/json)
+
         {
             "error": {
                 "message": "Could not found type",
@@ -163,19 +158,19 @@ station and company that buys recycle dump.
             }
         }
 
-### Update Types [/{type_id} POST]
+### Update Types [POST]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + type_id:1 (number, required)
 + Request (application/json)
-    + Headers
-
-            token: Bearer JWT
     + Attributes
-        
+
         + type: type(required)
-    
+
     + Parameters
-        
+
         + type_id (number, required)
-    
+
 + Response 200 (application/json)
 
         {
@@ -186,7 +181,7 @@ station and company that buys recycle dump.
         }
 
 + Response 404 (application/json)
-        
+
         {
             "error": {
                 "message": "Could not found type",
@@ -194,36 +189,313 @@ station and company that buys recycle dump.
             }
         }
 
-### Delete Type [/{type_id} DELETE]
-+ Request (application/json)
-    + Headers
+### Delete Type [DELETE]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + type_id:1 (number, required)
 
-            token: Bearer JWT
-    + Attributes
-        
-        + type: type(required)
-    
-    + Parameters
-        
-        + type_id (number, required)
-    
 + Response 200 (application/json)
 
-        {
-            "data": {
-                "id": 1,
-                "type": "type"
-            }
-        }
-
 + Response 404 (application/json)
-        
+
         {
             "error": {
                 "message": "Could not found type",
                 "status_code": 404
             }
         }
+
+# Group Station Sell
+## Creation Station Sell [/stationSells{?token}]
+### Create Station Sell [POST]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+
++ Request (application/json)
+
+    + Attributes
+
+        + price      : 150.0    (number, required)
+        + quantity   : 40       (number, required)
+        + type_id    : 1        (number, required)
+        + station_id : 5        (number, required)
+
++ Response 200 (application/json)
+
+          {
+            "data": {
+            "id": 1,
+            "price": "150.00",
+            "quantity": "40.0",
+              "type": {
+                  "link": "/api/v1/types/1"
+              },
+              "station": {
+                  "link": "/api/v1/station/5"
+              }
+            }
+          }
+
+## List [/stationSells{?orderByPrice}{&priceLessThan}{&priceMoreThan}{&quantityLessThan}{&quantityMoreThan}{&stationName}{&type}{&limit}{&token}]
+### List Station Sell [GET]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + orderByPrice: asc (string, optional) - It can be "asc" or "desc"
+    + priceLessThan: 150 (number, optional)
+    + priceMoreThan: 100 (number, optional)
+    + quantityLessThan: 30 (number, optional)
+    + quantityMoreThan: 50 (number, optional)
+    + stationName: face (string, optional) - It search for string like you write not exactly you write
+    + type: plastic (string, optional) - - It search for string like you write not exactly you write
+    + limit: 2 (number, optional)
+
++ Response 200 (application/json)
+
+          {
+            "data": [
+              {
+                  "id": 4,
+                  "price": "300.00",
+                  "quantity": "100.0",
+                  "type": {
+                      "link": "/api/v1/types/1"
+                  },
+                  "station": {
+                      "link": "/api/v1/station/5"
+                  }
+              },
+              {
+                  "id": 3,
+                  "price": "200.00",
+                  "quantity": "60.0",
+                  "type": {
+                      "link": "/api/v1/types/1"
+                  },
+                  "station": {
+                      "link": "/api/v1/station/5"
+                  }
+              }
+            ],
+            "meta": {
+              "pagination": {
+                  "total": 8,
+                  "count": 2,
+                  "per_page": 2,
+                  "current_page": 1,
+                  "total_pages": 4,
+                  "links": {
+                      "next": "http://domain/api/v1/stationSells?page=2"
+                  }
+              }
+            }
+          }
+
+## Single Station Sell [/stationSells/{stationSell_id}{?token}]
+### Show Station Sell [GET]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + stationSell_id: 4 (number, required)
+
+
++ Response 200 (application/json)
+
+          {
+            "data": {
+              "id": 4,
+              "price": "300.00",
+              "quantity": "100.0",
+              "type": {
+                  "link": "/api/v1/types/1"
+              },
+              "station": {
+                  "link": "/api/v1/station/5"
+              }
+            }
+          }
+
++ Response 404 (application/json)
+
+          {
+            "error": {
+              "message": "Could not found sell of station",
+              "status_code": 404
+            }
+          }
+
+### Update Station Sell [POST]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + stationSell_id: 4 (number, required)
++ Request (application/json)
+    + Attributes
+
+            + price      : 150.0    (number, required)
+            + quantity   : 90       (number, required)
+            + type_id    : 1        (number, required)
+            + station_id : 5        (number, required)
+
+    + Parameters
+        + stationSell_id:4 (number, required)
+
++ Response 200 (application/json)
+
+          {
+            "data": {
+              "id": 4,
+              "price": "150",
+              "quantity": "90",
+              "type": {
+                  "link": "/api/v1/types/1"
+              },
+              "station": {
+                  "link": "/api/v1/station/5"
+              }
+            }
+          }
+
++ Response 404 (application/json)
+
+          {
+            "error": {
+              "message": "Could not found sell of station",
+              "status_code": 404
+            }
+          }
+
+### Delete Station Sell [DELETE]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + stationSell_id: 4 (number, required)
+
++ Response 200 (application/json)
+
++ Response 404 (application/json)
+
+        {
+            "error": {
+              "message": "Could not found sell of station",
+              "status_code": 404
+            }
+          }
+
+# Group Company Buy
+## Creation of Company Buy [/companyBuys{?token}]
+### Create Company Buy [POST]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
++ Request (application/json)
+
+    + Attributes
+
+        + stationSell_id  : 4    (number, required)
+        + company_id      : 4    (number, required)
+
++ Response 200 (application/json)
+
+          {
+            "data": {
+              "id": 5,
+              "stationSell": {
+                "link": "/api/v1/stationSells/4"
+              },
+              "station": {
+                "link": "/api/v1/companies/4"
+              }
+            }
+          }
+## Collection of Company Buy[[/companyBuys{?orderByPrice}{&priceLessThan}{&priceMoreThan}{&stationName}{&type}{&limit}{&token}]
+### List Company Buy [GET]
+
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + orderByPrice: asc|desc (string, optional)
+    + priceLessThan: 150 (number, optional)
+    + priceMoreThan: 100 (number, optional)
+    + stationName: face (string, optional)
+    + type: plastic (string, optional)
+    + limit: 3 (number, optional)
+
++ Response 200 (application/json)
+
+          {
+            "data": [
+              {
+                "id": 1,
+                "stationSell": {
+                    "link": "/api/v1/stationSells/5"
+                },
+                "station": {
+                    "link": "/api/v1/companies/4"
+                }
+              },
+              {
+                "id": 3,
+                "stationSell": {
+                    "link": "/api/v1/stationSells/8"
+                },
+                "station": {
+                    "link": "/api/v1/companies/4"
+                }
+              }
+            ],
+            "meta": {
+            "pagination": {
+              "total": 2,
+              "count": 2,
+              "per_page": 3,
+              "current_page": 1,
+              "total_pages": 1,
+              "links": []
+            }
+          }
+
+## Single Company Buy [/companyBuys/{companyBuy_id}{?token}]
+### Show Company Buy [GET]
+
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + companyBuy_id: 5 (number, required)
+
+
++ Response 200 (application/json)
+
+          {
+            "data": {
+              "id": 3,
+              "stationSell": {
+                "link": "/api/v1/stationSells/8"
+              },
+              "station": {
+                "link": "/api/v1/companies/4"
+              }
+            }
+          }
+
++ Response 404 (application/json)
+
+          {
+            "error": {
+              "message": "Could not buy of company",
+              "status_code": 404,
+            }
+          }
+
+### Delete CompanyBuy [DELETE]
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + companyBuy_id: 5 (number, required)
+
++ Response 200 (application/json)
+
++ Response 404 (application/json)
+
+        {
+            "error": {
+              "message": "Could not found buy of company",
+              "status_code": 404
+            }
+          }
+
 
 ## Data Structures
 
@@ -241,7 +513,7 @@ station and company that buys recycle dump.
 ## CompanyBuy(object)
 + id (number)
 + company_id (string)
-+ stationSell_id (string)   
++ stationSell_id (string)
 
 ## User (object)
 + id (number)

@@ -67,7 +67,7 @@ $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
 ]);
 // $app->routeMiddleware([
-//     'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
+//     'auth' => App\Http\Middleware\JwtMiddleware::class,
 // ]);
 
 /*

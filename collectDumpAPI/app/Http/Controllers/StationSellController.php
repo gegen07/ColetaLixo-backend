@@ -35,7 +35,7 @@ class StationSellController extends Controller{
 
 		if (!$validator->fails()) {
 			$stationSell = StationSell::create($request->all());
-			return $this->response->item($stationSell, new StationSellTransformer);
+			return $this->response->item($stationSell, new StationSellTransformer)->setStatusCode(200);
 		} else {
 			throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not create new sell of station.', $validator->errors());
 		}
@@ -71,11 +71,7 @@ class StationSellController extends Controller{
     $request->user()->authorizeRoles(['station']);
     $stationSell = StationSell::destroy($id);
 		if($stationSell) {
-			return response(
-				[
-					'status' => $stationSell ? "success" : "Not found.",
-				], $statusCode ?? 201
-			);
+			return response($statusCode ?? 204);
 		} else {
 			throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not found sell of station');
 		}
@@ -90,7 +86,6 @@ class StationSellController extends Controller{
     if($request->has('limit')) {
       return $this->response->paginator($stationSells, new StationSellTransformer);
     }
-
     return $this->response->collection($stationSells, new StationSellTransformer);
   }
 

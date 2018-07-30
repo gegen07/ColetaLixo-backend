@@ -11,13 +11,14 @@ class StationSellTransformer extends TransformerAbstract
     {
         return [
             'id' => $stationSell->id,
+            'price' => $stationSell->price,
             'quantity' => $stationSell->quantity,
             'type'   => [
               'link' => '/api/v1/types/' . $stationSell->type_id
 
             ],
             'station' => [
-                'link' => '/api/v1/station/' . $stationSell->station_id 
+                'link' => '/api/v1/station/' . $stationSell->station_id
             ]
         ];
     }
