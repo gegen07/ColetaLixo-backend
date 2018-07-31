@@ -13,12 +13,12 @@ station and company that buys recycle dump.
 
     + Attributes
 
-        + name: yourName (required)
-        + address: yourAddress (required)
-        + telephone: +5587541265 (required)
-        + email: email@example.com (required)
-        + password: password (required)
-        + role: company|station (required)
+        + name: `yourName` (required)
+        + address: `yourAddress` (required)
+        + telephone: `+5587541265` (required)
+        + email: `email@example.com` (required)
+        + password: `password` (required)
+        + role: `company` (required) - It can be station too
 
 + Response 200 (application/json)
 
@@ -46,8 +46,8 @@ station and company that buys recycle dump.
 
     + Attributes
 
-        + email: email@example.com(required)
-        + password: password (required)
+        + email: `email@example.com` (required)
+        + password: `password` (required)
 
 
 + Response 200 (application/json)
@@ -69,7 +69,7 @@ station and company that buys recycle dump.
 ### Logout [POST]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
 
 + Request (application/json)
 
@@ -86,16 +86,16 @@ station and company that buys recycle dump.
         }
 
 # Group Types
-## Creation of Type [/types{?token}]
+## Type Collection [/types{?token}]
 ### Create Types [POST]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
 
 + Request (application/json)
 
     + Attributes
 
-        + type: type(required)
+        + type: `type` (required)
 
 + Response 200 (application/json)
 
@@ -108,7 +108,7 @@ station and company that buys recycle dump.
 
 ### List Types [GET]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
 
 + Response 200 (application/json)
 
@@ -135,8 +135,8 @@ station and company that buys recycle dump.
 ### Show [GET]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
-    + type_id:1 (number, required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
+    + type_id: 1 (number, required)
 
 + Request (application/json)
 
@@ -160,16 +160,12 @@ station and company that buys recycle dump.
 
 ### Update Types [POST]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
-    + type_id:1 (number, required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
+    + type_id: 1 (number, required)
 + Request (application/json)
-    + Attributes
+   + Attributes
 
         + type: type(required)
-
-    + Parameters
-
-        + type_id (number, required)
 
 + Response 200 (application/json)
 
@@ -191,8 +187,8 @@ station and company that buys recycle dump.
 
 ### Delete Type [DELETE]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
-    + type_id:1 (number, required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
+    + type_id: 1 (number, required)
 
 + Response 200 (application/json)
 
@@ -206,19 +202,19 @@ station and company that buys recycle dump.
         }
 
 # Group Station Sell
-## Creation Station Sell [/stationSells{?token}]
+## CStationSell Collection [/stationSells{?token}]
 ### Create Station Sell [POST]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
 
 + Request (application/json)
 
     + Attributes
 
-        + price      : 150.0    (number, required)
-        + quantity   : 40       (number, required)
-        + type_id    : 1        (number, required)
-        + station_id : 5        (number, required)
+        + price      : `150.0`    (number, required)
+        + quantity   : `40`       (number, required)
+        + type_id    : `1`        (number, required)
+        + station_id : `5`        (number, required)
 
 + Response 200 (application/json)
 
@@ -236,17 +232,17 @@ station and company that buys recycle dump.
             }
           }
 
-## List [/stationSells{?orderByPrice}{&priceLessThan}{&priceMoreThan}{&quantityLessThan}{&quantityMoreThan}{&stationName}{&type}{&limit}{&token}]
-### List Station Sell [GET]
+### List Station Sell [GET /stationSells{?orderByPrice,priceLessThan,priceMoreThan,quantityLessThan,quantityMoreThan,stationName,type,limit,token}]
+
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + orderByPrice: asc (string, optional) - It can be "asc" or "desc"
     + priceLessThan: 150 (number, optional)
     + priceMoreThan: 100 (number, optional)
     + quantityLessThan: 30 (number, optional)
     + quantityMoreThan: 50 (number, optional)
     + stationName: face (string, optional) - It search for string like you write not exactly you write
-    + type: plastic (string, optional) - - It search for string like you write not exactly you write
+    + type: plastic (string, optional) - It search for string like you write not exactly you write
     + limit: 2 (number, optional)
 
 + Response 200 (application/json)
@@ -292,10 +288,10 @@ station and company that buys recycle dump.
 
 ## Single Station Sell [/stationSells/{stationSell_id}{?token}]
 ### Show Station Sell [GET]
-+ Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
-    + stationSell_id: 4 (number, required)
 
++ Parameters
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
+    + stationSell_id: 4 (number, required)
 
 + Response 200 (application/json)
 
@@ -324,18 +320,17 @@ station and company that buys recycle dump.
 
 ### Update Station Sell [POST]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + stationSell_id: 4 (number, required)
+
 + Request (application/json)
+
     + Attributes
 
-            + price      : 150.0    (number, required)
-            + quantity   : 90       (number, required)
-            + type_id    : 1        (number, required)
-            + station_id : 5        (number, required)
-
-    + Parameters
-        + stationSell_id:4 (number, required)
+        + price      : `150.0`    (number, required)
+        + quantity   : `90`      (number, required)
+        + type_id    : `1`        (number, required)
+        + station_id : `5`        (number, required)
 
 + Response 200 (application/json)
 
@@ -364,7 +359,7 @@ station and company that buys recycle dump.
 
 ### Delete Station Sell [DELETE]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + stationSell_id: 4 (number, required)
 
 + Response 200 (application/json)
@@ -379,16 +374,17 @@ station and company that buys recycle dump.
           }
 
 # Group Company Buy
-## Creation of Company Buy [/companyBuys{?token}]
+## Company Buy Collection [/companyBuys{?token}]
 ### Create Company Buy [POST]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI` (required)
+
 + Request (application/json)
 
     + Attributes
 
-        + stationSell_id  : 4    (number, required)
-        + company_id      : 4    (number, required)
+        + company_id     : `4`      (number, required)
+        + stationSell_id : `4`        (number, required)
 
 + Response 200 (application/json)
 
@@ -398,22 +394,22 @@ station and company that buys recycle dump.
               "stationSell": {
                 "link": "/api/v1/stationSells/4"
               },
-              "station": {
+              "company": {
                 "link": "/api/v1/companies/4"
               }
             }
           }
-## Collection of Company Buy[[/companyBuys{?orderByPrice}{&priceLessThan}{&priceMoreThan}{&stationName}{&type}{&limit}{&token}]
-### List Company Buy [GET]
+
+### List Company Buy [GET /companyBuys{?orderByPrice,priceLessThan,priceMoreThan,stationName,type,limit,token}]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
-    + orderByPrice: asc|desc (string, optional)
-    + priceLessThan: 150 (number, optional)
-    + priceMoreThan: 100 (number, optional)
-    + stationName: face (string, optional)
-    + type: plastic (string, optional)
-    + limit: 3 (number, optional)
+    + token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI` (required)
+    + orderByPrice: `asc` (string, optional)
+    + priceLessThan: `150` (number, optional)
+    + priceMoreThan: `100` (number, optional)
+    + stationName: `face` (string, optional)
+    + type: `plastic` (string, optional)
+    + limit: `3` (number, optional)
 
 + Response 200 (application/json)
 
@@ -453,7 +449,7 @@ station and company that buys recycle dump.
 ### Show Company Buy [GET]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + companyBuy_id: 5 (number, required)
 
 
@@ -482,7 +478,7 @@ station and company that buys recycle dump.
 
 ### Delete CompanyBuy [DELETE]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI(required)
+    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + companyBuy_id: 5 (number, required)
 
 + Response 200 (application/json)
@@ -495,30 +491,3 @@ station and company that buys recycle dump.
               "status_code": 404
             }
           }
-
-
-## Data Structures
-
-## Type(object)
-+ id (number)
-+ type (string)
-
-## StationSell(object)
-+ id (number)
-+ price (number)
-+ quantity (number)
-+ type_id (string)
-+ station_id (string)
-
-## CompanyBuy(object)
-+ id (number)
-+ company_id (string)
-+ stationSell_id (string)
-
-## User (object)
-+ id (number)
-+ name (string)
-+ email (string)
-+ telephone (string)
-+ address (string)
-+ token (string)
