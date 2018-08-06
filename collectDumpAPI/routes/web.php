@@ -24,6 +24,8 @@ $api->version('v1', function ($api) {
 
         $api->group(['middleware' => 'auth:api'], function($api) {
             $api->group(['prefix' => 'user'], function($api) {
+                $api->get('/refresh', 'App\Http\Controllers\AuthController@refresh');
+                $api->get('/profile', 'App\Http\Controllers\AuthController@me');
                 $api->post('/logout', 'App\Http\Controllers\AuthController@logout');
             });
 

@@ -8,6 +8,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Transformers\UserTransformer;
 use Laravel\Lumen\Routing\Controller as BaseController;
 class AuthController extends BaseController {
 
@@ -43,6 +45,11 @@ class AuthController extends BaseController {
         ]);
     }
 
+    public function guard()
+    {
+        return Auth::guard('api');
+    }
+
     /**
      * Authenticate a user and return the token if the provided credentials are correct.
      *
@@ -66,7 +73,13 @@ class AuthController extends BaseController {
             return response()->json(['message' => 'Failed to login, please try again.'], 500);
         }
 
-        return response()->json(['data'=> [ 'token' => static::respondWithToken($token) ]], 200);
+        $user = User::where('email',$request->input('email'))->first();
+
+        return response()->json([
+          'data' =>
+          ['token' => static::respondWithToken($token),
+           'user' => UserTransformer::transform($user)]
+        ], 200);
     }
 
     public function register(Request $request)
@@ -105,6 +118,16 @@ class AuthController extends BaseController {
       return response()->json(['message'=> 'Thanks for signing up!'], 200);
     }
 
+    public function me()
+    {
+        return response()->json(UserTransformer::transform($this->guard()->user()));
+    }
+
+    public function refresh()
+    {
+        return $this->respondWithToken($this->guard()->refresh());
+    }
+
     public function logout(request $request) {
         $this->validate($request, ['token' => 'required']);
 
@@ -116,4 +139,6 @@ class AuthController extends BaseController {
             return response()->json(['message' => 'Failed to logout, please try again.'], 500);
         }
     }
+
+
 }
