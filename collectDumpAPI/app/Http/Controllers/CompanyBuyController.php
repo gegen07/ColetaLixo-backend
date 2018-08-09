@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transformers\CompanyBuyTransformer;
+use Illuminate\Support\Facades\Auth;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,10 +18,15 @@ class CompanyBuyController extends Controller{
 
     use Helpers;
 
-    public function __construct()
-    {
-      $this->middleware('auth:api');
-    }
+  public function __construct()
+  {
+    $this->middleware('auth:api');
+  }
+
+  public function guard()
+  {
+      return Auth::guard('api');
+  }
 
 	public function create(Request $request)
   {
@@ -59,12 +65,16 @@ class CompanyBuyController extends Controller{
     $request->user()->authorizeRoles(['company']);
 
     $companyBuys = CompanyBuySearch::apply($request);
+    
+    $companyBuys->whereHas('company', function($query){
+      $query->where('email', $this->guard()->user()->email);
+    });
 
-    if($request->has("limit")) {
-      return $this->response->paginator($companyBuys, new CompanyBuyTransformer)->setStatusCode(200);
+    if(CompanyBuySearch::hasPagination($request)) {
+      return $this->response->paginator($companyBuys->paginate($request->input('limit')), new CompanyBuyTransformer)->setStatusCode(200);
     }
 
-    return $this->response->collection($companyBuys, new CompanyBuyTransformer)->setStatusCode(200);
+    return $this->response->collection($companyBuys->get(), new CompanyBuyTransformer)->setStatusCode(200);
   }
 
   public function show(Request $request, $id)

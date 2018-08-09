@@ -25,6 +25,6 @@ class CompanyBuy extends Model
         return $this->belongsTo(StationSell::class, 'id', 'stationSell_id');
     }
     public function company() {
-        return $this->belongsTo(User::class, 'id', 'company_id');
+        return $this->belongsTo(User::class, 'company_id', 'id');
     }
 }
