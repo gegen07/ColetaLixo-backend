@@ -15,7 +15,7 @@ class CompanyBuyTransformer extends TransformerAbstract
               'link' => '/api/v1/stationSells/' . $companyBuy->stationSell_id            
             ],
             'station' => [
-                'link' => '/api/v1/companies/' . $companyBuy->company_id 
+                'link' => '/api/v1/user/company/' . $companyBuy->company_id 
             ]
         ];
     }

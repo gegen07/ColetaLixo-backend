@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\CompanyBuy;
+use App\Models\StationSell;
 use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Transformers\CompanyBuyTransformer;
+use Illuminate\Support\Facades\Auth;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,10 +19,15 @@ class CompanyBuyController extends Controller{
 
     use Helpers;
 
-    public function __construct()
-    {
-      $this->middleware('auth:api');
-    }
+  public function __construct()
+  {
+    $this->middleware('auth:api');
+  }
+
+  public function guard()
+  {
+      return Auth::guard('api');
+  }
 
 	public function create(Request $request)
   {
@@ -29,11 +36,13 @@ class CompanyBuyController extends Controller{
 		$rules = [
             'stationSell_id' => ['required'],
             'company_id' => ['required'],
-		];
+    ];
+
 		$validator = Validator::make($request->all(), $rules);
 
 		if (!$validator->fails()) {
-			$companyBuy = CompanyBuy::create($request->all());
+      $companyBuy = CompanyBuy::create($request->all());
+      static::buy($request);
 			return $this->response->item($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
 		} else {
 			throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not create new buy of company.', $validator->errors());
@@ -59,12 +68,16 @@ class CompanyBuyController extends Controller{
     $request->user()->authorizeRoles(['company']);
 
     $companyBuys = CompanyBuySearch::apply($request);
+    
+    $companyBuys->whereHas('company', function($query){
+      $query->where('email', $this->guard()->user()->email);
+    });
 
-    if($request->has("limit")) {
-      return $this->response->paginator($companyBuys, new CompanyBuyTransformer)->setStatusCode(200);
+    if(CompanyBuySearch::hasPagination($request)) {
+      return $this->response->paginator($companyBuys->paginate($request->input('limit')), new CompanyBuyTransformer)->setStatusCode(200);
     }
 
-    return $this->response->collection($companyBuys, new CompanyBuyTransformer)->setStatusCode(200);
+    return $this->response->collection($companyBuys->get(), new CompanyBuyTransformer)->setStatusCode(200);
   }
 
   public function show(Request $request, $id)
@@ -76,6 +89,12 @@ class CompanyBuyController extends Controller{
     } catch (\Exception $e) {
         throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not buy of company');
     }
+  }
+
+  private static function buy(Request $request) {
+    $stationSell = StationSell::findOrFail($request->stationSell_id);
+    $stationSell->isSelled = 1;
+    $stationSell->save();
   }
 }
 ?>

@@ -13,7 +13,7 @@ class CompanyBuySearch
   public static function apply(Request $filters) {
     $query = static::applyDecoratorFromRequest($filters, (new CompanyBuy)->newQuery());
 
-    return static::getResults($filters, $query);
+    return static::getResults($query);
   }
 
   private static function applyDecoratorFromRequest(Request $request, Builder $query) {
@@ -36,19 +36,15 @@ class CompanyBuySearch
     return class_exists($decorator);
   }
 
-  private static function hasPagination(Request $filters) {
+  public static function hasPagination(Request $filters) {
     if($filters->has('limit')) {
       return true;
     }
     return false;
   }
 
-  private static function getResults(Request $filters, Builder $query) {
-    if (static::hasPagination($filters)) {
-      return $query->paginate($filters->input('limit'));
-    }
-
-    return $query->get();
+  private static function getResults(Builder $query) {
+    return $query;
   }
 }
 
