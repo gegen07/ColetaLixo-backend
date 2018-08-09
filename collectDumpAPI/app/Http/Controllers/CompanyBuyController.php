@@ -41,7 +41,8 @@ class CompanyBuyController extends Controller{
 		$validator = Validator::make($request->all(), $rules);
 
 		if (!$validator->fails()) {
-			$companyBuy = CompanyBuy::create($request->all());
+      $companyBuy = CompanyBuy::create($request->all());
+      static::buy($request);
 			return $this->response->item($companyBuy, new CompanyBuyTransformer)->setStatusCode(200);
 		} else {
 			throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not create new buy of company.', $validator->errors());
@@ -90,7 +91,7 @@ class CompanyBuyController extends Controller{
     }
   }
 
-  private function buy(Request $request) {
+  private static function buy(Request $request) {
     $stationSell = StationSell::findOrFail($request->stationSell_id);
     $stationSell->isSelled = 1;
     $stationSell->save();
