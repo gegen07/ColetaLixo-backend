@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\CompanyBuy;
+use App\Models\StationSell;
 use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -35,7 +36,8 @@ class CompanyBuyController extends Controller{
 		$rules = [
             'stationSell_id' => ['required'],
             'company_id' => ['required'],
-		];
+    ];
+
 		$validator = Validator::make($request->all(), $rules);
 
 		if (!$validator->fails()) {
@@ -86,6 +88,12 @@ class CompanyBuyController extends Controller{
     } catch (\Exception $e) {
         throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Could not buy of company');
     }
+  }
+
+  private function buy(Request $request) {
+    $stationSell = StationSell::findOrFail($request->stationSell_id);
+    $stationSell->isSelled = 1;
+    $stationSell->save();
   }
 }
 ?>

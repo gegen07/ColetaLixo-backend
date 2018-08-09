@@ -14,7 +14,7 @@ class CompanyBuy extends Model
      */
     protected $table = 'companyBuys';
     protected $fillable = [
-        'id', 'stationSell_id', 'company_id'
+        'id', 'stationSell_id', 'company_id' 
     ];
 
     protected $hidden = [

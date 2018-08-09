@@ -83,10 +83,12 @@ class StationSellController extends Controller{
 
     $stationSells = StationSellSearch::apply($request);
 
-    if($request->has('limit')) {
-      return $this->response->paginator($stationSells, new StationSellTransformer);
+    $stationSells = $stationSells->where('isSelled', 0);
+
+    if(StationSellSearch::hasPagination($request)) {
+      return $this->response->paginator($stationSells->paginate($request->input('limit')), new StationSellTransformer);
     }
-    return $this->response->collection($stationSells, new StationSellTransformer);
+    return $this->response->collection($stationSells->get(), new StationSellTransformer);
   }
 
   public function show(Request $request, $id) {
