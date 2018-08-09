@@ -18,7 +18,7 @@ class StationSellTransformer extends TransformerAbstract
 
             ],
             'station' => [
-                'link' => '/api/v1/station/' . $stationSell->station_id
+                'link' => '/api/v1/user/station/' . $stationSell->station_id
             ]
         ];
     }

@@ -140,5 +140,28 @@ class AuthController extends BaseController {
         }
     }
 
+    public function station(Request $request, $id) {
+        $request->user()->authorizeRoles(['station','company']);
+
+        $users = User::whereHas('roles', function($query){
+            $query->where('name', 'station');
+        });
+
+        $user = $users->findOrFail($id);
+
+        return response()->json(UserTransformer::transform($user));
+    }
+
+    public function company(Request $request, $id) {
+        $request->user()->authorizeRoles(['station','company']);
+        
+        $users = User::whereHas('roles', function($query){
+            $query->where('name', 'company');
+        });
+
+        $user = $users->findOrFail($id);
+
+        return response()->json(UserTransformer::transform($user));
+    }
 
 }
