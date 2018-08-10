@@ -1,3 +1,5 @@
 *.mwb
 *.mwb.bak
 *.png
+node_modules/
+*.json
