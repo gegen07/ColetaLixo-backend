@@ -4,13 +4,14 @@ use Closure;
 use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\JWT;
-use Tymon\JWTAuth\ExpiredException;
+use Tymon\JWTAuth\Exceptions;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JwtMiddleware {
+
     public function handle(Request $request, Closure $next, $guard = null)
     {
-        $token = $request->header('token');
+        $token = $request->header('Authorization');
 
         if(!$token) {
             // Unauthorized response if token not there
@@ -19,17 +20,17 @@ class JwtMiddleware {
             ], 401);
         }
         try {
-            $credentials = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
-        } catch(ExpiredException $e) {
+            $credentials = JWTAuth::parseToken($token, env('JWT_SECRET'), ['HS256'])->authenticate();
+        } catch(TokenExpiredException $e) {
             return response()->json([
                 'error' => 'Provided token is expired.'
-            ], 400);
-        } catch(Exception $e) {
+            ], $e->getStatusCode());
+        } catch(JWTException $e) {
             return response()->json([
                 'error' => 'An error while decoding token.'
-            ], 400);
+            ], $e->getStatusCode());
         }
-        $user = User::find($credentials->sub);
+        $user = User::find($credentials);
         // Now let's put the user in the request class so that you can grab it from there
         $request->auth = $user;
         return $next($request);
