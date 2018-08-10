@@ -2,4 +2,6 @@
 /.idea
 Homestead.json
 Homestead.yamls
-.example
+.env.example
+.env
+

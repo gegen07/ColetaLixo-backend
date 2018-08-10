@@ -41,9 +41,8 @@ station and company that buys recycle dump.
 
 ## User-Login [/login]
 ### Login [POST]
-
 + Request (application/json)
-
+    
     + Attributes
 
         + email: `email@example.com` (required)
@@ -53,9 +52,22 @@ station and company that buys recycle dump.
 + Response 200 (application/json)
 
         {
-            "success": true,
             "data": {
-                "token": "______"
+                "token": {
+                    "headers": [],
+                    "original": {
+                        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMzg1NDM4OCwiZXhwIjoxNTMzODU3OTg4LCJuYmYiOjE1MzM4NTQzODgsImp0aSI6ImJmZmZPQXVtbXJ0eDJWQkIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ROLeSWU8kyG2qDbDwy-ye9IVWtLO6bnf-DLf2nkou1Y",
+                        "token_type": "bearer",
+                        "expires_in": 3600
+                    },
+                    "exception": null
+                },
+                "user": {
+                    "name": "Germano Barcelos",
+                    "email": "email@gmail.com",
+                    "address": "Rua Iretama, 476, Novo Eldorado, Contagem",
+                    "telephone": "(31)996307181"
+                }
             }
         }
 
@@ -65,13 +77,72 @@ station and company that buys recycle dump.
             "message": "Email or password is wrong"
         }
 
-## User-Logout [/logout{?token}]
-### Logout [POST]
+## User [/user]
+### Profile [GET /profile]
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
+
++ Response 200 (application/json)
+
+        {
+            "name": "Germano Barcelos",
+            "email": "email@gmail.com",
+            "address": "Rua Iretama, 476, Novo Eldorado, Contagem",
+            "telephone": "(31)996307181"
+        }
+
+
+### Station [GET /station/{station_id}]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
-
+    
+    + station_id: 5 (number, required)
+    
 + Request (application/json)
+        
+    + Headers
+    
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
+
++ Response 200 (application/json)
+
+        {
+            "name": "Facebook",
+            "email": "email@gmail.com",
+            "address": "a",
+            "telephone": "852741963"
+        }
+
+### Company [GET /company/{company_id}]
+
++ Parameters
+    
+    + company_id: 5 (number, required)
+    
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
+
++ Response 200 (application/json)
+
+        {
+            "name": "AirBNB",
+            "email": "email@gmial.com",
+            "address": "a",
+            "telephone": "852741963"
+        }
+
+### Logout [POST /logout]
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
 + Response 200 (application/json)
 
@@ -84,15 +155,17 @@ station and company that buys recycle dump.
         {
             "message"=> "Failed to logout, please try again."
         }
-
+             
 # Group Types
-## Type Collection [/types{?token}]
+## Type Collection [/types]
 ### Create Types [POST]
-+ Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
-
 + Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
++ Response 200 (application/json)
     + Attributes
 
         + type: `type` (required)
@@ -107,8 +180,11 @@ station and company that buys recycle dump.
         }
 
 ### List Types [GET]
-+ Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
++ Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
 + Response 200 (application/json)
 
@@ -131,14 +207,17 @@ station and company that buys recycle dump.
             }
         }
 
-## Type [/types/{type_id}{?token}]
+## Type [/types/{type_id}]
 ### Show [GET]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + type_id: 1 (number, required)
 
 + Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
 + Response 200 (application/json)
 
@@ -160,9 +239,13 @@ station and company that buys recycle dump.
 
 ### Update Types [POST]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + type_id: 1 (number, required)
 + Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
+
    + Attributes
 
         + type: type(required)
@@ -187,8 +270,13 @@ station and company that buys recycle dump.
 
 ### Delete Type [DELETE]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + type_id: 1 (number, required)
+
++ Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
 + Response 200 (application/json)
 
@@ -202,12 +290,13 @@ station and company that buys recycle dump.
         }
 
 # Group Station Sell
-## CStationSell Collection [/stationSells{?token}]
+## CStationSell Collection [/stationSells]
 ### Create Station Sell [POST]
-+ Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
-
 + Request (application/json)
+        
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
     + Attributes
 
@@ -227,15 +316,14 @@ station and company that buys recycle dump.
                   "link": "/api/v1/types/1"
               },
               "station": {
-                  "link": "/api/v1/station/5"
+                  "link": "/api/v1/user/station/5"
               }
             }
           }
 
-### List Station Sell [GET /stationSells{?orderByPrice,priceLessThan,priceMoreThan,quantityLessThan,quantityMoreThan,stationName,type,limit,token}]
+### List Station Sell [GET /stationSells{?orderByPrice,priceLessThan,priceMoreThan,quantityLessThan,quantityMoreThan,stationName,type,limit}]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + orderByPrice: asc (string, optional) - It can be "asc" or "desc"
     + priceLessThan: 150 (number, optional)
     + priceMoreThan: 100 (number, optional)
@@ -244,6 +332,13 @@ station and company that buys recycle dump.
     + stationName: face (string, optional) - It search for string like you write not exactly you write
     + type: plastic (string, optional) - It search for string like you write not exactly you write
     + limit: 2 (number, optional)
+
++ Request (applcation/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
+
 
 + Response 200 (application/json)
 
@@ -257,7 +352,7 @@ station and company that buys recycle dump.
                       "link": "/api/v1/types/1"
                   },
                   "station": {
-                      "link": "/api/v1/station/5"
+                      "link": "/api/v1/user/station/5"
                   }
               },
               {
@@ -268,7 +363,7 @@ station and company that buys recycle dump.
                       "link": "/api/v1/types/1"
                   },
                   "station": {
-                      "link": "/api/v1/station/5"
+                      "link": "/api/v1/user/station/5"
                   }
               }
             ],
@@ -286,12 +381,17 @@ station and company that buys recycle dump.
             }
           }
 
-## Single Station Sell [/stationSells/{stationSell_id}{?token}]
+## Single Station Sell [/stationSells/{stationSell_id}]
 ### Show Station Sell [GET]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + stationSell_id: 4 (number, required)
+
++ Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
 + Response 200 (application/json)
 
@@ -304,7 +404,7 @@ station and company that buys recycle dump.
                   "link": "/api/v1/types/1"
               },
               "station": {
-                  "link": "/api/v1/station/5"
+                  "link": "/api/v1/user/station/5"
               }
             }
           }
@@ -320,10 +420,13 @@ station and company that buys recycle dump.
 
 ### Update Station Sell [POST]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + stationSell_id: 4 (number, required)
 
 + Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
     + Attributes
 
@@ -343,7 +446,7 @@ station and company that buys recycle dump.
                   "link": "/api/v1/types/1"
               },
               "station": {
-                  "link": "/api/v1/station/5"
+                  "link": "/api/v1/user/station/5"
               }
             }
           }
@@ -359,8 +462,14 @@ station and company that buys recycle dump.
 
 ### Delete Station Sell [DELETE]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + stationSell_id: 4 (number, required)
+
++ Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
+
 
 + Response 200 (application/json)
 
@@ -374,12 +483,14 @@ station and company that buys recycle dump.
           }
 
 # Group Company Buy
-## Company Buy Collection [/companyBuys{?token}]
+## Company Buy Collection [/companyBuys]
 ### Create Company Buy [POST]
-+ Parameters
-    + token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI` (required)
-
 + Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
+
 
     + Attributes
 
@@ -395,21 +506,26 @@ station and company that buys recycle dump.
                 "link": "/api/v1/stationSells/4"
               },
               "company": {
-                "link": "/api/v1/companies/4"
+                "link": "/api/v1/user/companies/4"
               }
             }
           }
 
-### List Company Buy [GET /companyBuys{?orderByPrice,priceLessThan,priceMoreThan,stationName,type,limit,token}]
+### List Company Buy [GET /companyBuys{?orderByPrice,priceLessThan,priceMoreThan,stationName,type,limit}]
 
 + Parameters
-    + token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI` (required)
     + orderByPrice: `asc` (string, optional)
     + priceLessThan: `150` (number, optional)
     + priceMoreThan: `100` (number, optional)
     + stationName: `face` (string, optional)
     + type: `plastic` (string, optional)
     + limit: `3` (number, optional)
+    
++ Request (applcation/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
 + Response 200 (application/json)
 
@@ -421,7 +537,7 @@ station and company that buys recycle dump.
                     "link": "/api/v1/stationSells/5"
                 },
                 "station": {
-                    "link": "/api/v1/companies/4"
+                    "link": "/api/v1/user/company/4"
                 }
               },
               {
@@ -430,7 +546,7 @@ station and company that buys recycle dump.
                     "link": "/api/v1/stationSells/8"
                 },
                 "station": {
-                    "link": "/api/v1/companies/4"
+                    "link": "/api/v1/user/company/4"
                 }
               }
             ],
@@ -445,13 +561,17 @@ station and company that buys recycle dump.
             }
           }
 
-## Single Company Buy [/companyBuys/{companyBuy_id}{?token}]
+## Single Company Buy [/companyBuys/{companyBuy_id}]
 ### Show Company Buy [GET]
 
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + companyBuy_id: 5 (number, required)
 
++ Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
 
 + Response 200 (application/json)
 
@@ -478,8 +598,14 @@ station and company that buys recycle dump.
 
 ### Delete CompanyBuy [DELETE]
 + Parameters
-    + token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI (required)
     + companyBuy_id: 5 (number, required)
+
++ Request (application/json)
+    
+    + Headers
+                
+                Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4Ljk5LjEwMDo4MDgwXC9hcGlcL3YxXC9sb2dpbiIsImlhdCI6MTUzMjg4MzAxMCwiZXhwIjoxNTMyODg2NjEwLCJuYmYiOjE1MzI4ODMwMTAsImp0aSI6ImhOQ0wxTzBXa2s4VXJSOVIiLCJzdWIiOjQsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.3SUKcJbM4a9SWZQAT0r5agNUZKXT424EaRyM8fKQHXI
+
 
 + Response 200 (application/json)
 
