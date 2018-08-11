@@ -73,7 +73,7 @@ class AuthController extends BaseController {
             return response()->json(['message' => 'Failed to login, please try again.'], 500);
         }
 
-        $user = User::where('email',$request->input('email'))->first();
+        $user = User::where('email',$request->input('email'))->with('roles')->first();
 
         return response()->json([
           'data' =>
