@@ -73,7 +73,7 @@ class AuthController extends BaseController {
             return response()->json(['message' => 'Failed to login, please try again.'], 500);
         }
 
-        $user = User::where('email',$request->input('email'))->first();
+        $user = User::where('email',$request->input('email'))->with('roles')->first();
 
         return response()->json([
           'data' =>
@@ -128,11 +128,11 @@ class AuthController extends BaseController {
         return $this->respondWithToken($this->guard()->refresh());
     }
 
-    public function logout(request $request) {
-        $this->validate($request, ['token' => 'required']);
+    public function logout() {
+        
 
         try {
-            JWTAuth::setToken($request->header('token'))->invalidate();
+            $this->guard()->logout();
             return response()->json(['message'=> "You have successfully logged out."], 200);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
