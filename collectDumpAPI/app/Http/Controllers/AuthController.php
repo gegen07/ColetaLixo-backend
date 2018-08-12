@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Transformers\UserTransformer;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Mail;
+use Dingo\Api\Exception\ValidationHttpException;
+
 use Laravel\Lumen\Routing\Controller as BaseController;
 class AuthController extends BaseController {
 
@@ -25,9 +29,28 @@ class AuthController extends BaseController {
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['authenticate', 'register']]);
+        $this->middleware('auth:api', ['except' => ['authenticate', 'register', 'sendEmail']]);
     }
 
+
+    public function validate(
+            Request $request,
+            array $rules,
+            array $messages = [],
+            array $customAttributes = [])
+    {
+        $validator = $this->getValidationFactory()
+            ->make(
+                $request->all(),
+                $rules, $messages,
+                $customAttributes
+            );
+        if ($validator->fails()) {
+            throw new ValidationHttpException(
+                $validator->errors()
+            );
+        }
+    }
 
     /**
      * Get the token array structure.
@@ -129,7 +152,7 @@ class AuthController extends BaseController {
     }
 
     public function logout() {
-        
+
 
         try {
             $this->guard()->logout();
@@ -154,7 +177,7 @@ class AuthController extends BaseController {
 
     public function company(Request $request, $id) {
         $request->user()->authorizeRoles(['station','company']);
-        
+
         $users = User::whereHas('roles', function($query){
             $query->where('name', 'company');
         });
@@ -162,6 +185,23 @@ class AuthController extends BaseController {
         $user = $users->findOrFail($id);
 
         return response()->json(UserTransformer::transform($user));
+    }
+
+    public function sendEmail () {
+
+        $data = array(
+            'name' => "Learning Laravel",
+        );
+
+        Mail::send('emails.welcome', $data, function ($message) {
+
+            $message->from('gegenbarcelos@gmail.com', 'Germano Barcelos');
+
+            $message->to('gegeburger95@gmail.com')->subject('Learning Laravel test email');
+
+        });
+
+        return "Your email has been sent successfully";
     }
 
 }

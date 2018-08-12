@@ -7,11 +7,19 @@ use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Notifications\Messages\MailMessage;
 
-class User extends Model implements JWTSubject, AuthenticatableContract, AuthorizableContract
+class User extends Model
+  implements JWTSubject, AuthenticatableContract, AuthorizableContract,
+    CanResetPasswordContract
+
 {
-    use Authenticatable, Authorizable;
+    use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -32,6 +40,11 @@ class User extends Model implements JWTSubject, AuthenticatableContract, Authori
 
     public function companyBuys() {
         return $this->belongsToMany(CompanyBuy::class, 'company_id', 'id');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomPassword($token));
     }
 
     /**
@@ -80,5 +93,19 @@ class User extends Model implements JWTSubject, AuthenticatableContract, Authori
     public function hasRole($role)
     {
         return null !== $this->roles()->where('name', $role)->first();
+    }
+}
+
+class CustomPassword extends ResetPassword
+{
+    public function toMail($notifiable)
+    {
+        $route = app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('passwords.reset', $this->token);
+
+        return (new MailMessage)
+            ->from('gegenbarcelos@gmail.com')
+            ->line('We are sending this email because we recieved a forgot password request.')
+            ->action('Reset Password', url($route))
+            ->line('If you did not request a password reset, no further action is required. Please contact us if you did not submit this request.');
     }
 }

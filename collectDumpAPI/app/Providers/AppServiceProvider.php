@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+      $this->app->bind(\Illuminate\Contracts\Routing\UrlGenerator::class, function ($app) {
+            return new \Laravel\Lumen\Routing\UrlGenerator($app);
+      });
         Schema::defaultStringLength(191);
     }
 }
