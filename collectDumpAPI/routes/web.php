@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -22,6 +21,11 @@ $api->version('v1', function ($api) {
         $api->post('login','App\Http\Controllers\AuthController@authenticate');
         $api->post('register', 'App\Http\Controllers\AuthController@register');
 
+        $api->group(['prefix' => 'password'], function($api) {
+          $api->post('/email', 'App\Http\Controllers\PasswordController@postEmail');
+          $api->post('/reset/{token}',['as' => 'passwords.reset', 'uses' => 'App\Http\Controllers\PasswordController@postReset']);
+        });
+        
         $api->group(['middleware' => 'auth:api'], function($api) {
             $api->group(['prefix' => 'user'], function($api) {
                 $api->get('/refresh', 'App\Http\Controllers\AuthController@refresh');
