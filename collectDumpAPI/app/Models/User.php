@@ -100,12 +100,13 @@ class CustomPassword extends ResetPassword
 {
     public function toMail($notifiable)
     {
-        $route = app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('passwords.reset', $this->token);
+        // $route = app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('passwords.reset', $this->token);
 
         return (new MailMessage)
             ->from('gegenbarcelos@gmail.com')
             ->line('We are sending this email because we recieved a forgot password request.')
-            ->action('Reset Password', url($route))
+            ->line('This is your token ' . $this->token)
+            ->line('Put this token in the form to confirm that you wnat to reset your password')
             ->line('If you did not request a password reset, no further action is required. Please contact us if you did not submit this request.');
     }
 }
